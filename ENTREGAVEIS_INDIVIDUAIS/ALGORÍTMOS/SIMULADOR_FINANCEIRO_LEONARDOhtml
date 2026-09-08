@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Financeiro</title>
+</head>
+<body>
+    <h2>Simulador Financeiro</h2>
+    <span>Faça você mesmo o calculo de gastos logísticos em seu estabelecimento </span> <br><br>
+
+    <label for="input_lucroanual">Informe o lucro anual de seu estabelecimento:</label> <br>
+    <input type="text" id="input_lucroanual"> <br><br>
+
+    <label for="input_empilhadeiras">Informe o número de empilhadeiras utilizadas em seu(s) estoque(s):</label> <br>
+    <input type="text" id="input_empilhadeiras"> <br>
+    <label for="input_eletricas">Informe aqui, se aplicável, o número de empilhadeiras elétricas (caso não haja escreva NA):</label> <br>
+    <input type="text" id="input_eletricas"> <br>
+    <label for="input_glp">Informe aqui, se aplicável, o número de empilhadeiras de combustão/ GLP (caso não haja escreva NA):</label> <br>
+    <input type="text" id="input_glp"> <br><br>
+
+    <label for="input_horas">Informe as horas de funcionamento diárias de seu estabelecimento:</label> <br>
+    <input type="text" id="input_horas"> <br><br>
+    <label for="input_dias">Informe o número de dias de funcionamento por mês de seu estabelecimento:</label> <br>
+    <input type="text" id="input_dias"> <br><br>
+
+    <button onclick="simular()">Simular</button>
+    <div id="div_result"></div>
+
+</body>
+</html>
+<script>
+    function simular() {
+        let lucroanual = Number(input_lucroanual.value);
+        let num_empilhadieras = Number(input_empilhadeiras.value);
+        let emp_eletricas = Number(input_eletricas.value);
+        let emp_combustao = Number(input_glp.value);
+        let horasfuncionamento = Number(input_horas.value);
+        let diasfuncionamento = Number(input_dias.value);
+
+        let horasanuais = (horasfuncionamento * diasfuncionamento) * 12
+
+        let custo_eletrica = 0;
+        let custo_glp = 0;
+    
+        if (emp_eletricas > 0) {
+            custo_eletrica = (emp_eletricas * 25.60) * horasanuais;
+        }
+        if (emp_combustao > 0) {
+            custo_glp = (emp_combustao * 40.20) * horasanuais;
+        }
+
+        let custo_empilhadeiras_anual = custo_eletrica + custo_glp;
+        let taxa_avariascolisoes = lucroanual * 0.002
+        let taxa_ociosidade = custo_empilhadeiras_anual * 0.25
+
+        let gasto_total = custo_empilhadeiras_anual + taxa_avariascolisoes + taxa_ociosidade
+        let saldofinal = lucroanual - gasto_total
+        let porcen_gastosreduzidos = gasto_total * 0.8 
+
+        div_result.innerHTML = `Com base no seu lucro anual (R$${lucroanual}) <br><br>
+        
+        Calculamos: <br>
+        Os custos do uso geral das empilhadeiras, incluindo manutenções e operação é de R$${custo_empilhadeiras_anual.toFixed(2)} <br>
+        Somado ao custo considerado das possíveis colisões e avarias que podem vir a ocorrer devido aos gargalos logísticos (R$${taxa_avariascolisoes.toFixed(2)})<br>
+        E a taxa de ociosidade durante a operação (tempo desperdiçado no congestionamento) (R$${taxa_ociosidade.toFixed(2)}) <br><br>
+        
+        Estimamos que seu estabelecimento gasta cerca de <b>R$${gasto_total.toFixed(2)}</b> anualmente e que seu saldo final, incluindo os gastos e os lucros, é de R$${saldofinal.toFixed(2)} <br>
+        Ao utilizar o sistema de monitoramento inteligebte, será possível reduzir os gastos para R$${porcen_gastosreduzidos.toFixed(2)}`;
+ 
+    }
+</script>
