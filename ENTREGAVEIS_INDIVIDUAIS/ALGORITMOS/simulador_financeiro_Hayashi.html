@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Simulador Financeiro Fluxlog</h1>
+    <h3>Quanto você está perdendo com ineficiência operacional?</h3>
+    <span>Insira seu faturamento</span>
+    <br><input type="text" id="faturamento_ipt">
+    <br><br>
+    <button onclick="supermercado()">Supermercado</button>
+    <button onclick="hipermercado()">Hipermercado</button> <button onclick="atacarejo()">Atacarejo</button>
+    <br><br>
+    <div id="div_result"></div>
+</body>
+</html>
+
+<script>
+    function supermercado(){
+
+        let faturamento = Number(faturamento_ipt.value)
+
+        let taxa_ineficiencia = Number(0.021)
+        let lucro_bruto = Number(0.24)
+        let lucro_operacional = faturamento * lucro_bruto
+        let prejuizo_operacional = faturamento * taxa_ineficiencia
+        let lucro_liquido = lucro_operacional - prejuizo_operacional
+        let lucro_liquido_prc = (lucro_liquido / faturamento) * 100
+        let lucro_operacional_prc = (lucro_operacional / faturamento) * 100
+        let prejuizo_operacional_prc = (prejuizo_operacional / faturamento) * 100     
+
+        div_result.innerHTML = `De seu faturamento de R$${faturamento}: <br>
+        Você lucraria R$${(lucro_operacional).toFixed(2)} (${lucro_operacional_prc}%), se não houvesse um prejuízo de R$${(prejuizo_operacional).toFixed(2)} (${(prejuizo_operacional_prc).toFixed(2)}%).
+        <br>Seu lucro líquido é R$${(lucro_liquido).toFixed(2)} (${(lucro_liquido_prc).toFixed(2)}%).`
+
+}
+
+    function hipermercado(){
+
+        let faturamento = Number(faturamento_ipt.value)
+
+        let taxa_ineficiencia = Number(0.0190)
+        let lucro_bruto = Number(0.21)
+        let lucro_operacional = faturamento * lucro_bruto
+        let prejuizo_operacional = faturamento * taxa_ineficiencia
+        let lucro_liquido = lucro_operacional - prejuizo_operacional
+        let lucro_liquido_prc = (lucro_liquido / faturamento) * 100
+        let lucro_operacional_prc = (lucro_operacional / faturamento) * 100
+        let prejuizo_operacional_prc = (prejuizo_operacional / faturamento) * 100     
+
+        div_result.innerHTML = `De seu faturamento de R$${faturamento}: <br>
+        Você lucraria R$${(lucro_operacional).toFixed(2)} (${lucro_operacional_prc}%), se não houvesse um prejuízo de R$${(prejuizo_operacional).toFixed(2)} (${(prejuizo_operacional_prc).toFixed(2)}%).
+        <br>Seu lucro líquido é R$${(lucro_liquido).toFixed(2)} (${(lucro_liquido_prc).toFixed(2)}%).`
+
+}
+
+    function atacarejo(){
+
+        let faturamento = Number(faturamento_ipt.value)
+
+        let taxa_ineficiencia = Number(0.015)
+        let lucro_bruto = Number(0.14)
+        let lucro_operacional = faturamento * lucro_bruto
+        let prejuizo_operacional = faturamento * taxa_ineficiencia
+        let lucro_liquido = lucro_operacional - prejuizo_operacional
+        let lucro_liquido_prc = (lucro_liquido / faturamento) * 100
+        let lucro_operacional_prc = (lucro_operacional / faturamento) * 100
+        let prejuizo_operacional_prc = (prejuizo_operacional / faturamento) * 100     
+
+        div_result.innerHTML = `De seu faturamento de R$${faturamento}: <br>
+        Você lucraria R$${(lucro_operacional).toFixed(2)} (${(lucro_operacional_prc).toFixed(2)}%), se não houvesse um prejuízo de R$${(prejuizo_operacional).toFixed(2)} (${(prejuizo_operacional_prc).toFixed(2)}%).
+        <br>Seu lucro líquido é R$${(lucro_liquido).toFixed(2)} (${(lucro_liquido_prc).toFixed(2)}%).`
+
+}
+
+</script>
