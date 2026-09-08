@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1> Simulador Financeiro - Prejuízo </h1>
+    <label for="inp_faturamento"> Insira o faturamento anual de sua empresa: </label>
+    <input type="text" id="inp_faturamento">
+    <br>
+    <label for="inp_lucroPorcentagem"> Insira a porcentagem de lucro do seu mercado: </label>
+    <input type="text" id="inp_lucroPorcentagem">
+    <br>
+    <label for="select_modelo"> Informe o tipo do seu mercado: </label>
+    <select id="select_modelo">
+        // Os values das opções são as porcentagens da ineficiência logística de cada tipo de mercado.
+        <option value="2.07"> Supermercado </option>
+        <option value="1.88"> Hipermercado </option>
+        <option value="1.41"> Atacarejo </option>
+        <option value="2.47"> Loja de Conveniência </option>
+    </select>
+    <br>
+    <button onclick="Relatorio()"> Gerar Relatório </button>
+    <br><br>
+    <div id="div_relatorio"> </div>
+
+</body>
+</html>
+
+<script>
+
+    function Relatorio(){
+
+        let modeloMercado = ''
+        let devendo = ''
+        let faturamento = Number(inp_faturamento.value);
+        let porcentagemIneficiencia = Number(select_modelo.value);
+        let prejuizo = faturamento * (porcentagemIneficiencia/100);
+        let lucroPorcentagem = Number(inp_lucroPorcentagem.value)
+        let lucro = faturamento * (lucroPorcentagem/100);
+        let porcentagemPrejuizo = (prejuizo*100)/lucro;
+
+        if (porcentagemIneficiencia == 2.07) {
+
+            modeloMercado = 'Supermercado'
+        } 
+
+        else if (porcentagemIneficiencia == 1.88) {
+
+            modeloMercado = 'Hipermercado'
+        }
+        
+        else if (porcentagemIneficiencia == 1.41) {
+
+            modeloMercado = 'Atacarejo'
+        }
+
+        else {
+
+            modeloMercado = 'Loja Conveniência'
+        }
+
+        if (porcentagemPrejuizo > 100) {
+
+            devendo = '(Operando em deficit pela ineficiência logística)'
+        }
+
+        div_relatorio.innerHTML = `Seu mercado de estilo ${modeloMercado} atualmente sofre com um prejuízo de <span style="color: red;"> ${porcentagemIneficiencia}%
+                                  </span> devido a ineficiência operacional. Isso significa que do seu faturamento de R$ ${faturamento.toFixed(2)}, 
+                                  <span style="color: red;"> R$ ${prejuizo.toFixed(2)} </span> são desperdiçados por erros causados pela organização logística
+                                  ineficiente do seu estoque. Isso quer dizer que atualmente, da sua margem de lucro informado de aproximadamente ${lucroPorcentagem}%
+                                  (R$ ${lucro.toFixed(2)}) <span style="color: red;"> ${porcentagemPrejuizo.toFixed(2)}% </span> é desperdiçado pela ineficiência logística. 
+                                  <span style="color: red;"> ${devendo} </span>` 
+    }
+
+</script>
