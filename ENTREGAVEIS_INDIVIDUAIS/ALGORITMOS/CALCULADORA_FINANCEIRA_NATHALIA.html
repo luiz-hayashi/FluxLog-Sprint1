@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluxLog</title>
+</head>
+<body>
+    <h1>FluxLog - Calculadora financeira</h1>
+
+    <label for="ipt_NomeEmpresa">Informe o nome da empresa: </label>
+    <input type="text" id="ipt_NomeEmpresa"> <br><br>
+
+    <label for="ipt_LucroLiquido">Informe o seu lucro liquido mensal: </label>
+    <input type="text" id="ipt_LucroLiquido"><br><br>
+
+    <label for="ipt_FaturamentoBruto">Informe o seu faturamento bruto mensal: </label>
+    <input type="text" id="ipt_FaturamentoBruto"><br><br>
+<b> </b>
+    <button onclick="simulacao()">Simular</button><br><br>
+    <div id="div_resultado"></div><br><br>
+</body>
+</html>
+
+<script>
+    function simulacao(){
+        let nome = (ipt_NomeEmpresa.value)
+        let LucroLiquido = Number(ipt_LucroLiquido.value)
+        let FaturamentoBruto = Number(ipt_FaturamentoBruto.value)
+
+        let FaturamentoCurvaA = (FaturamentoBruto * 0.80).toFixed(2)
+        let PerdaAbras = (FaturamentoBruto * 0.0182).toFixed(2)
+        let IneficienciaOperacional = ((PerdaAbras / LucroLiquido) * 100).toFixed(1);
+
+        
+
+        if (PerdaAbras > LucroLiquido){
+           alert(`ALERTA CRÍTICO: SUA OPERAÇÃO PERDE MAIS DO QUE LUCRA!`)
+        } else {
+            alert ('ALERTA DE RISCO: A INEFICIÊNCIA ESTÁ CORROENDO SUA MARGEM!')
+        }
+
+        div_resultado.innerHTML = `Diagnóstico Financeiro do supermercado: <b>${nome}</b> <br><br><b>Resumo da operação:</b> <br>Faturamento Bruto Mensal: <b>R$${FaturamentoBruto}</b> <br>Lucro Líquido Declaro: <b>R$${LucroLiquido}</b> <br><br>O supermercado <b>${nome}</b> fatura <b>R$${FaturamentoBruto}</b> por mês, com um lucro líquido declarado de <b>R$${LucroLiquido}</b>. A ineficiência padrão do setor, segundo a <b>ABRAS</b> (Associação Brasileira de Supermercados), é de <b>1,82%</b>, o que consome <b>R$${PerdaAbras}</b> direto do seu caixa em avarias, furtos, quebras e tempo perdido.<br><br>Embora <b>1,82%</b> pareça um número pequeno, ele é calculado sobre todo o seu faturamento bruto. Isso significa que essa ineficiência devora <b>${IneficienciaOperacional}%</b> de todo o lucro líquido que você conseguiria colocar no bolso.<br><br>Do valor total que gira na sua loja, <b>R$${FaturamentoCurvaA}</b> dependem exclusivamente da reposição rápida dos produtos da <b>Curva A</b> (os <b>20%</b> de itens essenciais que geram <b>80%</b> das vendas).<br><br>Se não houver uma fiscalização diária e agilidade na reposição do estoque, esses produtos faltam na gôndola, a venda é perdida na hora para o concorrente, e a ineficiência aumenta.`
+    }
+</script>
