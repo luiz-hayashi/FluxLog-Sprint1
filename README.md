@@ -51,6 +51,6 @@ Lista de entregáveis do projeto.
 * [KAYCK CHAVES](https://github.com/KayckSousa)
 * [JOÃO PEDRO CASTRO](https://github.com/JoaoPedro-Castro)
 * [LEONARDO BEZERRA](https://github.com/leonardomaggnin)
-* [LUIZ FELIPE](https://github.com/luiz-hayashi)
+* [LUIZ HAYASHI](https://github.com/luiz-hayashi)
 * [NATHALIA GARCIA](https://github.com/nathaliagrocha)
 * [RAPHAEL EIJY](https://github.com/RaphaelTakakura)
