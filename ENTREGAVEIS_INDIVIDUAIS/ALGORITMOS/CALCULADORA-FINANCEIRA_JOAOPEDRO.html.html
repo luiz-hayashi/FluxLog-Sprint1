@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira</title>
+</head>
+<h1>Calculadora Economia Logistica</h1>
+
+<body>
+    <Span>Descubra o impacto financeiro da melhoria do fluxo de movimentação do estoque</Span>
+    <h2>Informe os dados da sua operação</h2>
+    <label for="input_num1">Faturamento mensal</label>
+    <input id="input_num1" type="text">
+    <br>
+    <br>
+    <label for="input_num2">Informe os custo mensal total das empilhadeiras</label>
+    <input id="input_num2" type="text">
+    <br>
+    <br>
+    <label for="input_num3">Informe o custo mensal dos funcionarios da operação</label>
+    <input id="input_num3" type="text">
+    <br>
+    <br>
+    <button onclick="button1()">Calcular Economia</button>
+    <div id="div_result"></div>
+
+
+<script>
+    function button1() {
+        let faturamento = Number(input_num1.value);
+
+        let empilhadeiras = Number(input_num2.value);
+
+        let funcionarios = Number(input_num3.value);
+
+        let investimento
+        if (faturamento > 300000) {
+            investimento = 20000;
+        }
+        else {
+            investimento = 10000;
+        }
+
+
+        let economia_empilhadeiras = empilhadeiras * 0.20;
+        let produtividade_recuperada = funcionarios * 0.20;
+        let faturamento_recuperado = faturamento * 0.03;
+        let economia_total = economia_empilhadeiras + produtividade_recuperada;
+        let payback = investimento / economia_total;
+
+        div_result.innerHTML = `
+Resultado da Analise
+    Economia operacional estimada ${economia_empilhadeiras}
+    <br>
+    Valor estimado da produtividade recuperada ${produtividade_recuperada}
+    <br>
+    Faturamento potencial recuperado ${faturamento_recuperado}
+    <br>
+    Economia mensal estimada ${economia_total}
+    <br>
+    Investimento necessario ${investimento}
+    <br>
+    PayBack estimado ${payback} meses 
+    <br>    
+      Com base nos dados informados, sua operação poderá
+        ter uma economia mensal estimada de R$ ${economia_total}.
+        Para implementar a solução, o investimento necessário
+        será de R$ ${investimento}. 
+        Lembrando que não adicionamos o potencial recuperado`
+
+    }
+
+
+
+
+
+
+</script>
+</body>
+
+</html>
