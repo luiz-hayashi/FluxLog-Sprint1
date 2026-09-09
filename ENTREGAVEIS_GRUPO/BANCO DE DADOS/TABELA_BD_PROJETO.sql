@@ -14,7 +14,7 @@ empresa VARCHAR(45)
 
 CREATE TABLE sensor(
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
-setor TINYINT,
+setor INT,
 statusSensor VARCHAR(20),
 CONSTRAINT chStatus CHECK (statusSensor = 'EM MANUTENÇÃO' OR statusSensor = 'ATIVO' OR statusSensor = 'INATIVO'),
 dataInstalação DATE,
