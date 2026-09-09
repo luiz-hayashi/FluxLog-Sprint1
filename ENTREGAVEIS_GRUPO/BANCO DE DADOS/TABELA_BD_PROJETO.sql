@@ -14,7 +14,7 @@ empresa VARCHAR(45)
 
 CREATE TABLE sensor(
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
-corredor TINYINT,
+setor TINYINT,
 statusSensor VARCHAR(20),
 CONSTRAINT chStatus CHECK (statusSensor = 'EM MANUTENÇÃO' OR statusSensor = 'ATIVO' OR statusSensor = 'INATIVO'),
 dataInstalação DATE,
@@ -24,13 +24,13 @@ dataManutenção DATETIME
 CREATE TABLE movimentacao(
 idMovimento INT PRIMARY KEY AUTO_INCREMENT,
 momento DATETIME,
-sensor VARCHAR(45),
+idSensor INT,
 setor INT
 );
 
 CREATE TABLE fluxo_movimentacao(
-idFluxo INT PRIMARY KEY AUTO_INCREMENT,
-idSensor INT,
+idSensor INT PRIMARY KEY,
+setor INT,
 qtdMovimento INT
 );
 
@@ -41,7 +41,7 @@ INSERT INTO usuario (cpf, cnpj, nome, email, senha, empresa) VALUES
 ('39482372810', '35635824000112', 'Fernando Silva', 'fernando@empresa.com', '46778940', 'Carrefour')
 ;
 
-INSERT INTO sensor (idSensor, corredor, statusSensor, dataInstalação) VALUES
+INSERT INTO sensor (idSensor, setor, statusSensor, dataInstalação) VALUES
 (DEFAULT, 1, 'ATIVO', CURRENT_DATE),
 (DEFAULT, 1, 'ATIVO', CURRENT_DATE),
 (DEFAULT, 2, 'ATIVO', CURRENT_DATE),
@@ -49,22 +49,19 @@ INSERT INTO sensor (idSensor, corredor, statusSensor, dataInstalação) VALUES
 (DEFAULT, 3, 'ATIVO', CURRENT_DATE),
 (DEFAULT, 3, 'INATIVO', CURRENT_DATE);
 
-INSERT INTO movimentacao (momento, sensor, setor) VALUES
-(NOW(), 1, 2),
+INSERT INTO movimentacao (momento, idSensor, setor) VALUES
 (NOW(), 2, 1),
-(NOW(), 2, 3),
-(NOW(), 1, 2),
+(NOW(), 5, 3),
+(NOW(), 3, 2),
+(NOW(), 1, 1),
+(NOW(), 5, 3),
 (NOW(), 2, 1);
 
-SELECT * FROM movimentacao WHERE sensor = 6;
-
-INSERT INTO fluxo_movimentacao (idSensor, qtdMovimento) VALUES
-(1, 2),
-(2, 3),
-(3, 0),
-(4, 0),
-(5, 0),
-(6, 0);
+INSERT INTO fluxo_movimentacao (idSensor, qtdMovimento, setor) VALUES
+(3, 1, 2),
+(1, 1, 1),
+(5, 2, 3),
+(2, 2, 1);
 
 
 
