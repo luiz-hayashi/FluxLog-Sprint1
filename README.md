@@ -49,7 +49,7 @@ Lista de entregáveis do projeto.
 
 ## 🤝Contribuições
 * [KAYCK CHAVES](https://github.com/KayckSousa)
-* [JOÃO PEDRO](https://github.com/JoaoPedro-Castro)
+* [JOÃO PEDRO CASTRO](https://github.com/JoaoPedro-Castro)
 * [LEONARDO BEZERRA](https://github.com/leonardomaggnin)
 * [LUIZ FELIPE](https://github.com/luiz-hayashi)
 * [NATHALIA GARCIA](https://github.com/nathaliagrocha)
