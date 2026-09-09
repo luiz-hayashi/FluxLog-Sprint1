@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculadora Financeira</title>
+</head>
+
+<body>
+
+    <h1> Calculadora Financeira - FluxLog </h1>
+    <!-- Usuário informa o nome da empresa -->
+    <label for="inp_nomeEmpresa">Informe o nome da empresa: </label>
+    <input type="text" id="inp_nomeEmpresa">
+    <br><br>
+
+    <!-- Usuário informa o faturamento da empresa (mensal) -->
+    <label for="inp_faturamento"> Informe o faturamento bruto mensal de sua empresa: </label>
+    <input type="text" id="inp_faturamento">
+    <br><br>
+
+    <!-- Usuário informa o lucro líquido da empresa (mensal) -->
+    <label for="inp_lucro">Informe o seu lucro liquido mensal: </label>
+    <input type="text" id="inp_lucro">
+    <br><br>
+
+    <!-- Usuário informa o tipo de supermercado (coleta de dados feita com select) -->
+    <label for="select_modelo"> Informe o tipo do seu mercado: </label>
+    <select id="select_modelo">
+
+        <!-- Os values das opções são as porcentagens da ineficiência logística de cada tipo de mercado de acordo com a ABRAS.
+         Esses valores são usados nas contas e para chamar a opção específica -->
+        <option selected disabled value = 333>SELECIONE UMA OPÇÃO</option>
+        <option value="2.07"> Supermercado </option>
+        <option value="1.88"> Hipermercado </option>
+        <option value="1.41"> Atacarejo </option>
+    </select>
+    <br><br>
+
+    <!-- Ao clicar no botão, a função Relatorio() é chamada -->
+    <button onclick="Relatorio()"> Gerar Relatório </button>
+    <br><br>
+    <div id="div_relatorio"> </div>
+
+</body>
+
+</html>
+
+<script>
+
+    function Relatorio() {
+
+        // As variáveis vazias são inicializadas primeiro para elas rodarem depois no código, elas vão receber valores depois.
+        let modeloMercado = ''
+        let devendo = ''
+        let porcentagemABRAS = ''
+        let faturamento = Number(inp_faturamento.value);
+        let porcentagemIneficiencia = Number(select_modelo.value); //Pega a porcentagem de ineficiência da ABRAS de acordo com a opção selecionada.
+        let prejuizo = faturamento * (porcentagemIneficiencia / 100);
+        let lucro = Number(inp_lucro.value);
+        let porcentagemPrejuizo = (prejuizo * 100) / lucro;
+        let nome = inp_nomeEmpresa.value;
+
+        // Cálculo do lucro dos produtos da curva A 
+        let FaturamentoCurvaA = faturamento * 0.80
+        
+        if (porcentagemIneficiencia == 2.07) {
+
+            modeloMercado = 'Supermercado'
+            porcentagemABRAS = '2.07'
+
+        }else if (porcentagemIneficiencia == 1.88) {
+
+            modeloMercado = 'Hipermercado'
+            porcentagemABRAS = '1.88'
+
+        }else if (porcentagemIneficiencia == 1.41) {
+            modeloMercado = 'Atacarejo'
+            porcentagemABRAS = '1.41'
+        } 
+
+          // Se o valor do prejuizo for maior que o lucro, vai aparecer uma mensagem no final indicando isso.
+        if (prejuizo > lucro) {
+
+            devendo = '(Operando em deficit pela ineficiência logística)'
+        }
+
+        div_relatorio.innerHTML = `O ${modeloMercado} <b>${nome}</b> fatura <b>R$${faturamento.toFixed(2)}</b> por mês, com um lucro líquido declarado de <b>R$${lucro.toFixed(2)}.</b> 
+                                   <br><br> A ineficiência padrão do setor, segundo a <b>ABRAS</b> (Associação Brasileira de Supermercados), é de <span style="color: red;"> <b>${porcentagemABRAS}%</b> </span>, o que consome <span style="color: red;"> <b>R$${prejuizo.toFixed(2)}</b> </span> direto do seu caixa em ineficiência operacional.<br><br> Embora <span style="color: red;"> <b>${porcentagemABRAS}%</b> </span> pareça um número pequeno, ele é calculado sobre todo o seu faturamento bruto.<br><br> Isso significa que essa ineficiência devora <span style="color: red;"> <b>${porcentagemPrejuizo.toFixed(2)}%</b> </span> de todo seu lucro líquido.<br>
+                                   <br>Do valor total que gira na sua loja, <b>R$${FaturamentoCurvaA.toFixed(2)}</b> dependem exclusivamente da reposição rápida dos produtos da <B>Curva A</B> (os <B>20%</B> de itens essenciais que geram <B>80%</B> das vendas).
+                                   <br><br> <span style="color: red;"> <b>${devendo}</b> </span>`
+
+        // Tratamento de valores inválidos.
+        if (porcentagemIneficiencia == 333 || faturamento == 0 || lucro == 0 || nome == '') {
+
+            alert(`Por favor, insira valores válidos.`)
+            div_relatorio.innerHTML = ` `
+        }
+    }
+
+</script>
