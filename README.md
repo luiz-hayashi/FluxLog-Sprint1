@@ -48,9 +48,9 @@ Lista de entregáveis do projeto.
 - [x] Linux instalado em VM local
 
 ## 🤝Contribuições
-* [NATHALIA GARCIA](https://github.com/nathaliagrocha)
-* [LEONARDO BEZERRA](https://github.com/leonardomaggnin)
-* [LUIZ FELIPE](https://github.com/luiz-hayashi)
 * [KAYCK CHAVES](https://github.com/KayckSousa)
 * [JOÃO PEDRO](https://github.com/JoaoPedro-Castro)
+* [LEONARDO BEZERRA](https://github.com/leonardomaggnin)
+* [LUIZ FELIPE](https://github.com/luiz-hayashi)
+* [NATHALIA GARCIA](https://github.com/nathaliagrocha)
 * [RAPHAEL EIJY](https://github.com/RaphaelTakakura)
