@@ -1,6 +1,7 @@
 CREATE DATABASE sprint1;
 USE sprint1;
 
+-- Tabela para armazenar as informações dos usuários
 CREATE TABLE usuario(
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
 cpf CHAR(11) UNIQUE NOT NULL,
@@ -12,27 +13,35 @@ senha VARCHAR(45) NOT NULL,
 empresa VARCHAR(45)
 );
 
+DESC usuario;
+
+-- Tabela para armazenar as informações técnicas sobre o sensor
 CREATE TABLE sensor(
 idSensor INT PRIMARY KEY AUTO_INCREMENT,
-setor INT,
-statusSensor VARCHAR(20),
+setor INT NOT NULL, 
+statusSensor VARCHAR(20) NOT NULL,
 CONSTRAINT chStatus CHECK (statusSensor = 'EM MANUTENÇÃO' OR statusSensor = 'ATIVO' OR statusSensor = 'INATIVO'),
-dataInstalação DATE,
+dataInstalação DATE NOT NULL,
 dataManutenção DATETIME
 );
+DESC sensor;
 
+-- Tabela para armazenar o histórico de atividade dos sensores
 CREATE TABLE movimentacao(
 idMovimento INT PRIMARY KEY AUTO_INCREMENT,
 momento DATETIME,
-idSensor INT,
-setor INT
+idSensor INT NOT NULL,
+setor INT NOT NULL
 );
+DESC movimentacao;
 
+-- Tabela com fim de filtrar os dados do histório
 CREATE TABLE fluxo_movimentacao(
 idSensor INT PRIMARY KEY,
-setor INT,
+setor INT NOT NULL,
 qtdMovimento INT
 );
+DESC fluxo_movimentacao;
 
 INSERT INTO usuario (cpf, cnpj, nome, email, senha, empresa) VALUES
 ('94845203491', '04687280000109', 'Roberto Alvez', 'roberto@empresa.com', '12344356', 'Assai'),
