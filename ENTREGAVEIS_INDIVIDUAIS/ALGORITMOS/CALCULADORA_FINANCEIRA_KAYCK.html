@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluxLog-Calculator</title>
+</head>
+
+<body>
+    <h1>Sua Calculadora Simuladora de Estoque</h1>
+    <label for="ipt_vendadia">* Insira quantidade de vendas por dia:
+        <input placeholder="Vendas por dia" id="ipt_vendadia">
+
+        <label for="ipt_faturamento">|* Insira valor médio dos produtos:</label>
+        <input placeholder="Insira seu faturamento" id="ipt_faturamento"><br><br>
+
+        <label for="ipt_perdida">|* Insira vendas pretendidas por dia:</label>
+        <input placeholder="Insira quantidade de produtos potenciais" id="ipt_perdida">
+
+        <label for="ipt_trabalhomes">| Insira dias trabalhados no mês</label>
+        <input placeholder="Dias de trabalho (Qtd)" id="ipt_trabalhomes"><br><br>
+
+        <label for="ipt_combustivel">| Insira seus gastos médio de consumo da gasolina em km/l:</label>
+        <input placeholder="Gastos de consumo da gasolina" id="ipt_combustivel">
+
+        <label for="ipt_busca">| Insira a quantidade de busca no estoque por dia:</label>
+        <input placeholder="Quantidade de busca por dia" id="ipt_busca"><br><br>
+
+        <label for="ipt_funcionario">| Insira tempo de trabalho nas buscas:</label>
+        <input placeholder="Insira o tempo de trabalho" id="ipt_funcionario">
+
+        <label for="ipt_custofuncionario">| Insira o custo por hora do funcionário</label>
+        <input placeholder="Insira os custos dos funcionários por hora" id="ipt_custofuncionario"><br><br>
+
+        <label for="ipt_empilhadeiras">| Insira quantidade de empilhadeiras:</label>
+        <input placeholder="Insira quantidade de empilhadeiras" id="ipt_empilhadeiras">
+
+        <label for="ipt_km">|Insira a média que suas empilhadeiras se locomovem em km por dia:</label>
+        <input placeholder="Insira média que sua empilhadeira anda" id="ipt_km"><br><br>
+
+        <label for="ipt_empregados">| Insira quantidade de funcionários:</label>
+        <input placeholder="Insira quantidade de funcionários" id="ipt_empregados">
+
+        <label for="ipt_valormediogas">| Insira valor médio do preço da gasolina</label>
+        <input placeholder="Insira valor médio da gasolina por litro" id="ipt_valormediogas"><br><br>
+
+        <label for="ipt_precoempi">| Insira o valor das empilhadeiras</label>
+        <input placeholder="Insira o valor das empilhadeiras" id="ipt_precoempi">
+
+        <label for="ipt_manuntencao">| Insira o valor da sua manuntenção preventiva mensal das empilhadeiras</label>
+        <input placeholder="Insira o valor mensal da manunteção preventiva" id="ipt_manuntencao"><br><br>
+
+
+        <span style="color: red;">(*) Preencha esses blocos para simular<br> o botão vendas perdidas</span><br>
+        <button onclick="vendas()"> * Insira suas vendas perdidas</button>
+        <button onclick="despesasefaturamento()">Despesas e Faturamento</button>
+        <div id="div_calculadora"></div>
+
+</body>
+
+</html>
+
+<script>
+
+    function vendas() {
+        let vendas_por_dias = Number(ipt_vendadia.value)
+        let valor_medio_produtos = Number(ipt_faturamento.value);
+        let vendas_pretendidas = Number(ipt_perdida.value);
+        let dias_trabalhados_mes = Number(ipt_trabalhomes.value);
+        let consumo_gk = Number(ipt_combustivel.value);
+        let vendas_totais_dias = vendas_por_dias * valor_medio_produtos;
+        let vendas_perdidas = vendas_pretendidas - vendas_por_dias;
+        let vendas_recuperadas = vendas_perdidas * 3 / 100;
+        let faturamento_perdido = vendas_perdidas * valor_medio_produtos;
+        let faturamento_recuperado = vendas_recuperadas * valor_medio_produtos;
+        let aumento_vendas = vendas_por_dias * 40 / 100;
+        let faturamento_comissao = vendas_por_dias * valor_medio_produtos; // faturamento da empresa
+        let comissao = faturamento_comissao / 100; // comissão do faturamento
+        let comissao_reducao = comissao * 5 / 100; //os 5% são a comissão para a redução.
+
+        div_calculadora.innerHTML = `Sua empresa faz ${vendas_por_dias} vendas por dia, com um valor médio de R$${valor_medio_produtos.toFixed(2)} por produto.<br>
+representando cerca de R$${vendas_totais_dias.toFixed(2)} do seu faturamento. O potencial de vendas dos produtos é de ${vendas_pretendidas}, perdendo cerca de ${vendas_perdidas} produtos.<br>
+Isso equivale a perda de R$${faturamento_perdido.toFixed(2)} do faturamento do mercado. mas com o sensor implantado, a recuperação seria de ${vendas_recuperadas} por dia,<br>
+recuperando cerca de R$${faturamento_recuperado.toFixed(2)} e a comissão seria de R$${comissao_reducao.toFixed(2)} para a redução das perdas`;
+    }
+
+    function despesasefaturamento() {
+        let preco_empilhadeira = Number(ipt_precoempi.value);
+        let media_km = Number(ipt_km.value);
+        let qtd_empilhadeiras = Number(ipt_empilhadeiras.value);
+        let preco_gasolina = Number(ipt_valormediogas.value);
+        let qtd_funcionario = Number(ipt_empregados.value);
+        let vendas_por_dias = Number(ipt_vendadia.value);
+        let valor_medio_produtos = Number(ipt_faturamento.value);
+        let vendas_pretendidas = Number(ipt_perdida.value);
+        let dias_trabalhados_mes = Number(ipt_trabalhomes.value);
+        let consumo_gk = Number(ipt_combustivel.value);
+        let busca_dia = Number(ipt_busca.value);
+        let funcionario = Number(ipt_funcionario.value);
+        let custo_func = Number(ipt_custofuncionario.value);
+        let manutencao = Number(ipt_manuntencao.value);
+        let manuntencao = Number(ipt_manuntencao.value);
+        //DESPESAS
+        let gasto_manutencao = manutencao * qtd_empilhadeiras;
+        let distancia_total = media_km * qtd_empilhadeiras * dias_trabalhados_mes;
+        let gasto_consumo = distancia_total / consumo_gk;
+        let gasto_gasolina = consumo_gk * preco_gasolina;
+        let gasto_funcionario = qtd_funcionario * custo_func * dias_trabalhados_mes * busca_dia;
+        let despesas_totais = gasto_gasolina + gasto_manutencao + gasto_funcionario;
+        //FATURAMENTO
+        let faturamento_dia = vendas_por_dias * valor_medio_produtos;
+        let faturamento_mes = faturamento_dia * dias_trabalhados_mes;
+        //REDUÇÃO
+        let custo_gasolina = consumo_gk * preco_gasolina;
+        let reducao_distancia = media_km * 0.80;
+        let nova_reducao = reducao_distancia * qtd_empilhadeiras * dias_trabalhados_mes;
+        let reducao_combustivel = nova_reducao / consumo_gk;
+        let custo = reducao_combustivel * preco_gasolina;
+        let custo_manuntencao = manuntencao * qtd_empilhadeiras;
+        let custo_manuntencao_anual = custo_manuntencao * 12;
+        let total_valor_empi = preco_empilhadeira * qtd_empilhadeiras;
+        let custo_mensal_total = custo_gasolina + custo_manuntencao;
+        let economia_empilhadeira = custo_gasolina - custo;
+        let economia_restante = custo_mensal_total - economia_empilhadeira;
+        
+        if(faturamento_mes <= 150000){
+        div_calculadora.innerHTML = `Segundo os dados fornecidos, seu minimercado tem gasto mensal de R$${despesas_totais.toFixed(2)},<br>
+        Com custo de manuntenção mensal de R$${custo_manuntencao.toFixed(2)} custando em um ano R$${custo_manuntencao_anual.toFixed(2)}<br>
+        e com gasto com funcionários mensais de R$${gasto_funcionario.toFixed(2)}<br>
+        Consumindo cerca de ${gasto_consumo.toFixed(2)} litros<br>
+        Com gasto estimado por mês de R$${custo_mensal_total.toFixed(2)}<br>
+        E um faturamento mensal de R$${faturamento_mes.toFixed(2)}<br>
+        Tendo como valor restante R$${faturamento_mes - despesas_totais}<br>
+        <b>Simulação com o sensor instalado<b><br>
+        A distância percorrida diminuiria de ${distancia_total} para ${reducao_distancia.toFixed(2)}km/dia;
+        Com queda de consumo de ${gasto_consumo.toFixed(2)} litros para ${reducao_combustivel.toFixed(2)} litros<br>
+        Tendo uma economia de R$${economia_empilhadeira.toFixed(2)}`;}
+
+        if(faturamento_mes > 1500000){
+        div_calculadora.innerHTML = `Segundo os dados fornecidos, seu supermercado tem gasto mensal de R$${despesas_totais.toFixed(2)},<br>
+        Com custo de manuntenção mensal de R$${custo_manuntencao.toFixed(2)} custando em um ano R$${custo_manuntencao_anual.toFixed(2)}<br>
+        e com gasto com funcionários mensais de R$${gasto_funcionario.toFixed(2)}<br>
+        Consumindo cerca de ${gasto_consumo.toFixed(2)} litros<br>
+        Com gasto estimado por mês de R$${custo_mensal_total.toFixed(2)}<br>
+        E um faturamento mensal de R$${faturamento_mes.toFixed(2)}<br>
+        Tendo como valor restante R$${faturamento_mes - despesas_totais}<br>
+        <b>Simulação com o sensor instalado<b><br>
+        A distância percorrida diminuiria de ${distancia_total} para ${reducao_distancia.toFixed(2)}km/dia;
+        Com queda de consumo de ${gasto_consumo.toFixed(2)} litros para ${reducao_combustivel.toFixed(2)} litros<br>
+        Tendo uma economia de R$${economia_empilhadeira.toFixed(2)}`;}
+
+         if(faturamento_mes > 50000000){
+        div_calculadora.innerHTML = `Segundo os dados fornecidos, seu atacarejo tem gasto mensal de R$${despesas_totais.toFixed(2)},<br>
+        Com custo de manuntenção mensal de R$${custo_manuntencao.toFixed(2)} custando em um ano R$${custo_manuntencao_anual.toFixed(2)}<br>
+        e com gasto com funcionários mensais de R$${gasto_funcionario.toFixed(2)}<br>
+        Consumindo cerca de ${gasto_consumo.toFixed(2)} litros<br>
+        Com gasto estimado por mês de R$${custo_mensal_total.toFixed(2)}<br>
+        E um faturamento mensal de R$${faturamento_mes.toFixed(2)}<br>
+        Tendo como valor restante R$${faturamento_mes - despesas_totais}<br>
+        <b>Simulação com o sensor instalado<b><br>
+        A distância percorrida diminuiria de ${distancia_total} para ${reducao_distancia.toFixed(2)}km/dia;
+        Com queda de consumo de ${gasto_consumo.toFixed(2)} litros para ${reducao_combustivel.toFixed(2)} litros<br>
+        Tendo uma economia de R$${economia_empilhadeira.toFixed(2)}`;}
+    }
+
+
+</script>
